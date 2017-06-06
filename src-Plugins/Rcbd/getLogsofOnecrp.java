@@ -23,6 +23,7 @@ import org.processmining.plugins.replayer.replayresult.SyncReplayResult;
 public class getLogsofOnecrp {
 
 	public static XLog getLogs(Petrinet pn, XLog log, PNRepResult result, crp c1) {
+		//for test
 		//find all choice branches
 		//crp c1 = new crp(test1.findPlace(pn, "source 1"),test1.findPlace(pn, "sink 3"));
 
