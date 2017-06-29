@@ -67,7 +67,7 @@ public class test3 {
 		//nodeInstance1.addAll(res.getNodeInstance());
 
 		List<StepTypes> stepTypes1 = new ArrayList<StepTypes>(res.getStepTypes());
-		//		res.getStepTypes();
+		//res.getStepTypes();
 
 		int i, j, k = 0;
 		for (int flag1 = 0; flag1 < l.size(); flag1++) {
@@ -113,21 +113,35 @@ public class test3 {
 	 */
 	public static List<List<Integer>> getlocation(SyncReplayResult res) {
 		int i, j, k;
-
+		int mid = 0, max = 0;
 		List<List<Integer>> l = new ArrayList<List<Integer>>();
 
-		for (i = 0; i < (res.getStepTypes().size() - 1); i++) {
-			for (j = i + 1; j < res.getStepTypes().size(); j++) {
-				for (k = j; k < res.getStepTypes().size(); k++) {
-					if (test3.judge(i, j, k, res)) {
-						List<Integer> flag = new ArrayList<Integer>();
-						flag.add(i);
-						flag.add(j);
-						flag.add(k);
-						System.out.println("++++++++++" + flag);
-						l.add(flag);
+		for (i = 0; i < (res.getStepTypes().size() - 1); i++)
+		{
+			for (j = i + 1; j < res.getStepTypes().size(); j++) 
+			{
+				mid = j;
+				max = j;
+				for (k = j; k < res.getStepTypes().size(); k++)
+				{
+					if(test3.judge(i, j, k, res) && k > max)
+					{
+						max = k;
 					}
 				}
+				
+				if(test3.judge(i, j, max, res))
+				{
+					List<Integer> flag = new ArrayList<Integer>();
+					flag.add(i);
+					flag.add(j);
+					flag.add(max);
+					System.out.println("++++++++++" + flag);
+					l.add(flag);
+					i = mid;
+					break;
+				}
+				
 			}
 		}
 		return l;

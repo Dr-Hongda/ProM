@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="F:/祁宏达/prom开发测试/lib/PNetReplayer.jar"/>
 	<classpathentry kind="lib" path="F:/祁宏达/prom开发测试/lib/EfficientStorage.jar"/>
 	<classpathentry kind="lib" path="F:/祁宏达/prom开发测试/lib/InductiveMiner.jar"/>
+	<classpathentry kind="lib" path="F:/祁宏达/prom开发测试/lib/Uma.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

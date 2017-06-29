@@ -49,7 +49,7 @@ public class test4 {
 
 	public static XLog PrintXLog(PluginContext context, Petrinet pn, XLog log, PNRepResult result) {
 		//find all choice branches
-		crp c1 = new crp(test1.findPlace(pn, "source 1"), test1.findPlace(pn, "sink 3"));
+		crp c1 = new crp(test1.findPlace(pn, "sink 129"), test1.findPlace(pn, "sink 130"));
 
 		List<ExtendedAlignments> exalignmentset = new ArrayList<ExtendedAlignments>();
 
@@ -217,7 +217,9 @@ public class test4 {
 					//System.out.println("this event is" + e.toString());
 					// add event to trace
 					t.add(e);
-				} else {
+				}
+				else
+				{
 					t.clear();
 					break;
 				}
@@ -226,12 +228,16 @@ public class test4 {
 				if ((align.getSyncReplayResult().getStepTypes().get(j) == org.processmining.plugins.petrinet.replayresult.StepTypes.MREAL)
 						&& align.getMarking().get(j).contains(c1.getnode2())) {
 					continue;
-				} else {
+				}
+				else
+				{
 					t.clear();
 					break;
 				}
 			}
-		} else {
+		} 
+		else 
+		{
 			t.clear();
 		}
 

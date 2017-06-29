@@ -9,6 +9,7 @@ import org.processmining.framework.connections.ConnectionCannotBeObtained;
 import org.processmining.framework.plugin.PluginContext;
 import org.processmining.framework.plugin.annotations.Plugin;
 import org.processmining.models.graphbased.directed.petrinet.Petrinet;
+import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetFactory;
 import org.processmining.plugins.petrinet.replayer.PNLogReplayer;
 import org.processmining.plugins.petrinet.replayresult.PNRepResult;
 import org.processmining.processtree.ProcessTree;
@@ -38,11 +39,23 @@ public class RepairModel {
 
 	public static Petrinet RepairPetrinet(PluginContext context, XLog log, Petrinet pn, ProcessTree pt,
 			PNRepResult result) {
-		Petrinet newpn = null;
-		CRPS crpset = findchoicestructure.find_choice_recognition(pt, pn);
+		
+		long startTime = System.currentTimeMillis();
+		
+		Petrinet newpn = PetrinetFactory.clonePetrinet(pn);
+		//Petrinet newpn = null;
+		CRPS crpset = findchoicestructure.find_choice_recognition(pt, newpn);
+		//CRPS crpset = findchoicestructure.find_choice_recognition(pt, pn);
+		//System.out.println("crpset is " + crpset.toString());
+
 		for (crp c1 : crpset.getList()) {
-			newpn = repairModelofOnecrp.RepairPetrinet(context, log, pn, c1, result);
+			repairModelofOnecrp.RepairPetrinet(context, log, newpn, c1, result);
+			//newpn = repairModelofOnecrp.RepairPetrinet(context, log, pn, c1, result);
 		}
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println("the total time is : "+(endTime-startTime)+"ms");
+		
 		return newpn;
 	}
 }

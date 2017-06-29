@@ -6,6 +6,8 @@ import java.util.List;
 import org.processmining.plugins.petrinet.replayresult.StepTypes;
 import org.processmining.plugins.replayer.replayresult.SyncReplayResult;
 
+import PrintPetrinet.test3;
+
 public class getOptimalAlignments {
 
 	/*
@@ -87,25 +89,42 @@ public class getOptimalAlignments {
 	 */
 	public static List<List<Integer>> getlocation(SyncReplayResult res) {
 		int i, j, k;
+		int mid = 0, max = 0;
 		List<List<Integer>> l = new ArrayList<List<Integer>>();
-		for (i = 0; i < (res.getStepTypes().size() - 1); i++) {
-			for (j = i + 1; j < res.getStepTypes().size(); j++) {
-				for (k = j; k < res.getStepTypes().size(); k++) {
-					if (getOptimalAlignments.judge(i, j, k, res)) {
-						List<Integer> flag = new ArrayList<Integer>();
-						flag.add(i);
-						flag.add(j);
-						flag.add(k);
-						l.add(flag);
+
+		for (i = 0; i < (res.getStepTypes().size() - 1); i++)
+		{
+			for (j = i + 1; j < res.getStepTypes().size(); j++) 
+			{
+				mid = j;
+				max = j;
+				for (k = j; k < res.getStepTypes().size(); k++)
+				{
+					if(test3.judge(i, j, k, res) && k > max)
+					{
+						max = k;
 					}
 				}
+				
+				if(test3.judge(i, j, max, res))
+				{
+					List<Integer> flag = new ArrayList<Integer>();
+					flag.add(i);
+					flag.add(j);
+					flag.add(max);
+					//System.out.println("++++++++++" + flag);
+					l.add(flag);
+					i = mid;
+					break;
+				}
+				
 			}
 		}
 		return l;
 	}
-
+	
 	/**
-	 * get a exchanged location
+	 * judge
 	 */
 	public static boolean judge(int i, int j, int k, SyncReplayResult res) {
 		int flag = i;

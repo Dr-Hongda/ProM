@@ -22,8 +22,18 @@ public class findchoicetransition {
 			if (pt.getType(i).equals(Type.XOR)) {
 				find_transition_by_recursive(i);
 				ctp1 = new ctp(ce.get(0), ce.get(ce.size() - 1));
-				ctpset.add(ctp1);
-				ce.clear();
+				//System.out.println("ce[0] is " + ce.get(0).toString());
+				if(ctp1.node1.toString().equals("tau") || ctp1.node2.toString().equals("tau"))
+				{
+					//System.out.println("1111111111111");
+					ce.clear();
+				}
+				else
+				{
+					//System.out.println("222222222222");
+					ctpset.add(ctp1);
+					ce.clear();
+				}
 			}
 		}
 		return ctpset;
@@ -34,10 +44,15 @@ public class findchoicetransition {
 		Block a = (Block) node;
 		List<Node> l = a.getChildren();
 
-		for (int i = 0; i < l.size(); i++) {
-			if (l.get(i).isLeaf()) {
+		for (int i = 0; i < l.size(); i++) 
+		{
+			if (l.get(i).isLeaf())
+			{
+				//System.out.println("+++++++++" + l.get(i));
 				ce.add(l.get(i));
-			} else {
+			} 
+			else
+			{
 				find_transition_by_recursive(l.get(i));
 			}
 		}

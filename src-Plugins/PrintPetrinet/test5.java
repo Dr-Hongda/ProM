@@ -39,7 +39,7 @@ public class test5 {
 
 	public static XLog RepairPetrinet(PluginContext context, XLog log, Petrinet pn, PNRepResult result) {
 		//for test
-		crp c1 = new crp(test1.findPlace(pn, "sink 16"), test1.findPlace(pn, "sink 6"));
+		crp c1 = new crp(test1.findPlace(pn, "sink 129"), test1.findPlace(pn, "sink 130"));
 
 		XLog branchlog = getLogsofOnecrp.getLogs(pn, log, result, c1);
 

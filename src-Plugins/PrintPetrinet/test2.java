@@ -29,7 +29,9 @@ public class test2 {
 				searchchoiceevent(i);
 				ctp.add(ce.get(0));
 				ctp.add(ce.get(ce.size() - 1));
-				System.out.println(ctp);
+				System.out.println(ctp.toString());
+				ce.clear();
+				ctp.clear();
 				//System.out.println("+++++++"+ce);
 				/*
 				 * a = (Block)i; l = a.getChildren(); //System.out.println(l);

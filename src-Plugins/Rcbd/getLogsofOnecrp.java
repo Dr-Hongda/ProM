@@ -20,6 +20,7 @@ import org.processmining.models.semantics.petrinet.Marking;
 import org.processmining.plugins.petrinet.replayresult.PNRepResult;
 import org.processmining.plugins.replayer.replayresult.SyncReplayResult;
 
+
 public class getLogsofOnecrp {
 
 	public static XLog getLogs(Petrinet pn, XLog log, PNRepResult result, crp c1) {
@@ -49,9 +50,11 @@ public class getLogsofOnecrp {
 			exalignmentset.add(exalignemt);
 		}
 
+		//System.out.println("11111111");
 		// create traces in the choice branch deviations log (each trace is one trace class from the replay)
 		for (int i = 0; i < exalignmentset.size(); i++) {
-			//System.out.println("exalignmentset's res is" + exalignmentset.get(i).getSyncReplayResult().getNodeInstance());
+			//System.out.println("exalignmentset's res is"
+					//+ exalignmentset.get(i).getSyncReplayResult().getNodeInstance());
 
 			SyncReplayResult res = exalignmentset.get(i).getSyncReplayResult();
 
@@ -86,11 +89,10 @@ public class getLogsofOnecrp {
 						f.createAttributeLiteral("concept:name", caseID, XConceptExtension.instance()));
 				t.setAttributes(traceAttr);
 
-				// add events to trace
+				// add all events to trace
 				t.addAll(getLogsofOnecrp.CollectChoiceBranchDeviation(exalignmentset.get(i), c1));
 
 				// add trace to log
-				//System.out.println("t'size is " + t.size());
 				if (t.size() != 0) {
 					choicelog.add(t);
 				} else {
@@ -98,11 +100,13 @@ public class getLogsofOnecrp {
 				}
 			}
 		}
-
 		return choicelog;
 	}
 
 	public static XTrace CollectChoiceBranchDeviation(ExtendedAlignments align, crp c1) {
+
+		//System.out.println("this res is" + align.getSyncReplayResult().getNodeInstance());
+		//System.out.println("this crp is (" + c1.getnode1() + ", " + c1.getnode2() + ")");
 
 		XFactory f = XFactoryRegistry.instance().currentDefault();
 		// create trace
@@ -119,6 +123,8 @@ public class getLogsofOnecrp {
 				choicebranchEvents.add(event.toString());
 			}
 		}
+
+		//System.out.println("choicebranchEvents is" + choicebranchEvents);
 
 		// add events to trace
 		int locs = 0, loce = 0, j = 0, mid = 0;
@@ -157,6 +163,10 @@ public class getLogsofOnecrp {
 			}
 		}
 
+//		System.out.println("this loce = " + locs);
+//		System.out.println("this mid = " + mid);
+//		System.out.println("this loce = " + loce);
+
 		if ((mid != 0) && (loce != 0) && (locs < mid) && (mid <= loce)) {
 			for (int i = locs; (i >= locs) && (i < mid); i++) {
 				if ((align.getSyncReplayResult().getStepTypes().get(i) == org.processmining.plugins.petrinet.replayresult.StepTypes.L)
@@ -183,23 +193,30 @@ public class getLogsofOnecrp {
 							XLifecycleExtension.instance()));
 					e.setAttributes(eventAttr);
 
+					//System.out.println("this event is" + e.toString());
 					// add event to trace
 					t.add(e);
-				} else {
+				}
+				else
+				{
 					t.clear();
 					break;
 				}
 			}
 			for (int i = mid; (i >= mid) && (i <= loce); i++) {
-				if ((align.getSyncReplayResult().getStepTypes().get(i) == org.processmining.plugins.petrinet.replayresult.StepTypes.MREAL)
-						&& align.getMarking().get(i).contains(c1.getnode2())) {
+				if ((align.getSyncReplayResult().getStepTypes().get(j) == org.processmining.plugins.petrinet.replayresult.StepTypes.MREAL)
+						&& align.getMarking().get(j).contains(c1.getnode2())) {
 					continue;
-				} else {
+				}
+				else
+				{
 					t.clear();
 					break;
 				}
 			}
-		} else {
+		} 
+		else 
+		{
 			t.clear();
 		}
 

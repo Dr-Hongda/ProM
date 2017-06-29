@@ -15,11 +15,14 @@ public class findchoicestructure {
 		crp c1 = null;
 		CRPS crpset = new CRPS();
 		CTPS ctpset = findchoicetransition.find_choice_transition(pt);
+		//System.out.println("ctpset is " + ctpset.toString());
+		
 		for (ctp c : ctpset.getList()) {
 			c1 = new crp(findchoicestructure.getinput(c.node1.toString(), pn), findchoicestructure.getoutput(
 					c.node2.toString(), pn));
 			crpset.add(c1);
 		}
+		//System.out.println("crpset is " + crpset.toString());
 		return crpset;
 	}
 
